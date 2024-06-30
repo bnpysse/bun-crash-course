@@ -10,4 +10,3 @@ class Person {
         return `${msg} ${this.name}! I am ${this.age} years old.`;
     }
 }
-
