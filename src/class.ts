@@ -82,3 +82,22 @@ class Employee extends People {
 let john = new Employee('John');
 console.log(john.say('Hello, '));
 john.eat();  // 抽象类中的方法可以被继承，但是不能被实例化
+
+// 类实现接口
+interface AnimalInterface {
+    name: string;
+    eat(): void;
+}
+
+class Dog implements AnimalInterface {
+    name: string;
+    constructor(name: string) {
+        this.name = name;
+    }
+    eat() {
+        console.log(`${this.name} is eating.`);
+    }
+}
+let dog = new Dog('Buddy');
+console.log(dog.name);
+dog.eat();
