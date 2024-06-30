@@ -53,3 +53,32 @@ b.sex = 'Male'; // 正确
 console.log(b.name,' and ', b.sex); // Tiger
 a.sex = 'Female'; // 正确
 console.log(a.name,' and ', a.sex); // Tiger
+
+// abstract class
+abstract class People {
+    abstract name: string;
+    abstract say(msg: string): string;
+    protected constructor(name: string) {
+        this.name = name;
+    }
+    eat() {
+        console.log(`${this.name} is eating.`);
+    }
+}
+
+class Employee extends People {
+    constructor(name: string) {
+        super(name);
+        // 得对Employee中的name重新赋值，否则会被认为是People中的name
+        this.name = name;
+    }
+    say(msg: string): string {
+        return `${msg} ${this.name}`;
+    }
+
+    name: string;
+}
+
+let john = new Employee('John');
+console.log(john.say('Hello, '));
+john.eat();  // 抽象类中的方法可以被继承，但是不能被实例化
