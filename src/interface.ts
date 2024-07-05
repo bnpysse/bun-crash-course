@@ -94,3 +94,27 @@ Object.entries(s).forEach((key, value) => {
 console.log(Object.entries(s).map((key, value) => {
     return `Key: ${key}, Value: ${value}, key is ${typeof key} value is ${typeof value}`;
 }));
+
+
+// interface继承type
+// 对于类型Country来说，通过接口CountryWithPopulation继承类型Country，可以添加新的属性population
+// 但是CountryWithPopulation的capital属性是readonly，不能修改
+type Country = {
+    name: string;
+    capital: string;
+}
+interface CountryWithPopulation extends Country {
+    population: number;
+}
+let country: CountryWithPopulation = {
+    name: 'China',
+    capital: 'Beijing',
+    population: 1373000000
+};
+console.log(country);
+let countries: CountryWithPopulation[] = [
+    {'name': 'China', 'capital': 'Beijing', 'population': 1373000000},
+    {'name': 'USA', 'capital': 'Washington', 'population': 330000000},
+    {'name': 'India', 'capital': 'New Delhi', 'population': 1373000000}
+];
+console.log(countries);
