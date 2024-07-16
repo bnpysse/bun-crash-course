@@ -1,6 +1,4 @@
-// import {add} from './mathUtils';
-// import {area, perimeter} from './mathUtils';
-// console.log(add(8, 2));
-import Geometry from './mathUtils';
-console.log(Geometry.area(10, 20));
-console.log(Geometry.perimeter(10, 20));
+import area = Geometry.area;
+import perimeter = Geometry.perimeter;
+console.log(area(10, 20));
+console.log(perimeter(10, 20));
