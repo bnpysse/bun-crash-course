@@ -35,7 +35,8 @@ type Sex = 'Male' | 'Female'
 // 参数属性
 class Animal {
     private _male: Sex
-    constructor(public name: string, public age: number) {}
+
+    constructor() {}
     set sex(val: Sex){
         if (val !== 'Male' && val !== 'Female'){
             throw new Error('人的性别只能是“Male”、“Female”')
@@ -46,9 +47,9 @@ class Animal {
         return this._male
     }
 }
-let a: Animal = new Animal('Lion', 2);
+let a: Animal = new Animal();
 console.log(a.name); // Lion
-let b: Animal = new Animal('Tiger', 3);
+let b: Animal = new Animal();
 b.sex = 'Male'; // 正确
 console.log(b.name,' and ', b.sex); // Tiger
 a.sex = 'Female'; // 正确
