@@ -7,12 +7,20 @@
     "start": "bun run src/files.ts"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "@elysiajs/static": "^1.1.0",
+    "bun-types": "latest",
+    "unocss": "^0.61.5"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "react-dom": "^18.2.0"
+    "@elysiajs/eden": "^1.1.1",
+    "@elysiajs/html": "^1.1.0",
+    "@unocss/cli": "^0.61.5",
+    "@unocss/core": "^0.61.5",
+    "concurrently": "^8.2.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   }
 }
