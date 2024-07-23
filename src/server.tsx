@@ -1,5 +1,6 @@
 import Elysia, { t } from "elysia";
 import { html } from "@elysiajs/html";
+import * as elements from "typed-html";
 import eden from "@elysiajs/eden";
 import { User, Post } from "./type";
 
@@ -42,8 +43,8 @@ const app = new Elysia()
     .get('/', () => (
         <html lang="en">
         <head>
-            <meta charset="UTF-8" />
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <meta charSet="UTF-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
             <title>User Post List</title>
             <script src="https://unpkg.com/htmx.org@1.9.6"></script>
         </head>
