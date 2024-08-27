@@ -252,3 +252,20 @@ const result = new Chain([1, 2, 3, 4, 5])
     .map(total => `The total is: ${total}`)
     .result();
 console.log(result);
+
+console.log('--- 利用Map实现计数器 ---');
+function countOccurrences(arr: string[]): Map<string, number> {
+    const countMap = new Map<string, number>();
+    for (const item of arr) {
+        countMap.set(item, (countMap.get(item) || 0) + 1);
+    }
+    return countMap
+}
+// const fruits = ['apple', 'banana', 'orange', 'apple', 'banana', 'orange', 'banana']
+console.log(`The fruits are: ${JSON.stringify(fruits)}`);
+
+console.log(`The count of fruits is: ${JSON.stringify(Array.from(countOccurrences(fruits)))}`);
+const stringOfFruits = JSON.stringify(Object.fromEntries(countOccurrences(fruits)));
+console.log(stringOfFruits.length, stringOfFruits);
+const a = JSON.parse(stringOfFruits, (key, value) => value);
+console.log(a, typeof a === 'object')
