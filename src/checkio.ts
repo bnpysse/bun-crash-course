@@ -83,6 +83,10 @@ const flattened = nestedArray.reduce((acc, current) => acc.concat(current), []);
 console.log(`The flattened array is: ${JSON.stringify(flattened)}`);
 
 console.log('--- 按条件分组 ---');
+interface People {
+    name: string;
+    age: number;
+}
 const people = [
     {name: 'Alice', age: 25},
     {name: 'Bob', age: 30},
@@ -90,15 +94,17 @@ const people = [
     {name: 'David', age: 34},
     {name: 'Eve', age: 30},
 ];
-
+// 之所以出错，还是因为前面定义了Person，里面有一个Department的属性，所以在这里再定义Person的时候就需要加上Department的类型
+// const persons: People[] = [
+//     {name: 'Alice', age: 25},
+//     {name: 'Bob', age: 30},
+//     {name: 'Charlie', age: 25},
+//     {name: 'David', age: 34},
+// ];
 const groupByAge = people.reduce((acc, current) => {
-    const age = current.age;
-    if (!acc[age]) {
-        acc[age] = [];
-    }
-    (acc[age] as typeof people).push(current);
+    (acc[current.age] = acc[current.age] || []).push(current);
     return acc;
-}, {} as Record<number, typeof people[]>);
+}, {} as Record<number, People[]>);
 console.log(Object.keys(groupByAge));
 console.log(Object.values(groupByAge).length);
 // 如何得到 groupByAge 数组的长度？
@@ -107,7 +113,7 @@ console.log(`The groupByAge is: ${JSON.stringify(groupByAge)}`);
 
 console.log('--- 实现Promise链 ---');
 
-function chainPromises<T>(functions: (() => Promise<T>)[]): Promise<T> {
+function chainPromises<T>(functions: ((prev: T) => Promise<T>)[]): Promise<T> {
     return functions.reduce(
         (acc, curr) => acc.then(curr),
         Promise.resolve() as Promise<any>
@@ -189,14 +195,14 @@ console.log('--- 复杂对象的转换 ---');
 interface InputData {
     id: number;
     name: string;
-    attributes: { key: string; value: any }[];
+    attributes: { key: string; value: string|number }[];
 }
 
 interface OutputData {
     id: number;
     name: string;
 
-    [key: string]: any;
+    [key: string]: string | number;
 }
 
 const input: InputData[] = [
@@ -267,5 +273,38 @@ console.log(`The fruits are: ${JSON.stringify(fruits)}`);
 console.log(`The count of fruits is: ${JSON.stringify(Array.from(countOccurrences(fruits)))}`);
 const stringOfFruits = JSON.stringify(Object.fromEntries(countOccurrences(fruits)));
 console.log(stringOfFruits.length, stringOfFruits);
-const a = JSON.parse(stringOfFruits, (key, value) => value);
+const a = JSON.parse(stringOfFruits, (key, value) => `${key}(${value})`);
 console.log(a, typeof a === 'object')
+
+console.log('--- 依赖关系图 ---');
+type Task = {
+    name: string;
+    dependencies: string[];
+}
+
+function buildDependencyGraph(tasks: Task[]): Map<string, string[]> {
+    const graph = new Map<string, string[]>();
+    for (const task of tasks) {
+        graph.set(task.name, task.dependencies);
+    }
+    return graph;
+}
+const tasks: Task[] = [
+    {name: 'task1', dependencies: ['task2', 'task3']},
+    {name: 'task2', dependencies: []},
+    {name: 'task3', dependencies: ['task2']},
+];
+
+const dependencyGraph = buildDependencyGraph(tasks);
+console.log(dependencyGraph);
+
+console.log('--- 频率排序 ---');
+function sortByFrequency(arr: string[]): string[] {
+    const frequencyMap = countOccurrences(arr);
+    return Array.from(frequencyMap)
+        .sort((a, b) => b[1] - a[1])
+        .flatMap(([item, count]) => Array(count).fill(item));
+}
+const items = ['apple', 'banana', 'orange', 'apple', 'banana', 'orange', 'banana'];
+const sortedItems = sortByFrequency(items);
+console.log(sortedItems);
